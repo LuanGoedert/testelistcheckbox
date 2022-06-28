@@ -41,10 +41,9 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         customFragment = CustomFragment(requireActivity())
-        var seddingList: SeedingService = SeedingService()
-        var x = seddingList.retornaListaItens()
+        var seddingList = SeedingService()
 
-        customFragment.recyclerFragment(requireActivity(), x, onClickParameter = {})
+        customFragment.recyclerFragment(requireActivity(), seddingList.retornaListaItens(), onClickParameter = {}, binding.FirstFragment)
 
 //        itemAdapter = ItemAdapter(
 //            requireActivity(),

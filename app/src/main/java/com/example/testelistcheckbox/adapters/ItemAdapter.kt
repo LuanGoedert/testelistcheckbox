@@ -3,18 +3,19 @@ package com.example.testelistcheckbox.adapters
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testelistcheckbox.R
+import com.example.testelistcheckbox.helpers.CustomFragment
 import com.example.testelistcheckbox.itemlist.ItemList
 
 class ItemAdapter(activity: Activity, listItens:
                   MutableList<ItemList> = mutableListOf(),
                   private var onClickItem : () -> Unit,
+                  private var linearLayout: LinearLayout
                  ):
     AbstractRecyclerAdapter<ItemList, ItemAdapter.ViewHolder>(activity, R.layout.itemlist) {
+    var customFragment = CustomFragment(activity)
 
     init {
         itens = listItens
@@ -34,6 +35,7 @@ class ItemAdapter(activity: Activity, listItens:
         }
         viewHolder.arrowDown.setOnClickListener{
             if(!item.listaItens.isNullOrEmpty()){
+                customFragment.recyclerFragment(activity, item.listaItens!!.toMutableList(), onClickParameter = {onClickItem}, linearLayout)
             }
         }
     }
@@ -41,6 +43,6 @@ class ItemAdapter(activity: Activity, listItens:
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val textItem : TextView = itemView.findViewById(R.id.textItem)
         val checkBox : CheckBox = itemView.findViewById(R.id.checkBox)
-        val arrowDown : ImageView = itemView.findViewById(R.id.imageViewItem)
+        val arrowDown : ImageButton = itemView.findViewById(R.id.imageViewItem)
     }
 }

@@ -17,17 +17,17 @@
         android:id="@+id/textItem"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:gravity="bottom"
+        android:gravity="center"
         android:text="item"
         android:textColor="@color/black"
-        android:textSize="50sp"
+        android:autoSizeMaxTextSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageViewItem"
         app:layout_constraintStart_toEndOf="@+id/checkBox"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/imageViewItem"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
