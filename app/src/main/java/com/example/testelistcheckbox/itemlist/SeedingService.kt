@@ -2,88 +2,101 @@ package com.example.testelistcheckbox.itemlist
 
 class SeedingService {
 
-    fun retornaListaItens(): MutableList<ItemList> {
-        return mutableListOf<ItemList>(
-            ItemList(
+    fun retornaListaItens(): MutableList<ProdutoFamilia> {
+        return mutableListOf<ProdutoFamilia>(
+            ProdutoFamilia(
                 "1",
                 "Moda",
                 isExpanded = true
                 , itensList = mutableListOf(
-                    ItemList(
+                    ProdutoFamilia(
                         "1.2", "masculino",
+                        isChecked = false,
                         mutableListOf(
-                            ItemList(
+                            ProdutoFamilia(
                                 "1.2.1", "camisa",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.2.1.1", "camisa brusque", null),
-                                    ItemList("1.2.1.2", "camisa flamengo", null)
+                                    ProdutoFamilia("1.2.1.1", "camisa brusque", itensList = null, isChecked = false),
+                                    ProdutoFamilia("1.2.1.2", "camisa flamengo", itensList = null, isChecked = false)
                                 )
-                            ), ItemList(
+                            ), ProdutoFamilia(
                                 "1.2.2", "bermuda",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.2.2.2", "bermuda jeans", null),
-                                    ItemList("1.2.2.1", "bermuda tactel", null)
+                                    ProdutoFamilia("1.2.2.2", "bermuda jeans", itensList = null, isChecked = false),
+                                    ProdutoFamilia("1.2.2.1", "bermuda tactel", itensList = null, isChecked = false)
                                 )
                             )
                         )
-                    ), ItemList(
+                    ), ProdutoFamilia(
                         "1.3", "Feminino",
+                        isChecked = false,
                         mutableListOf(
-                            ItemList(
+                            ProdutoFamilia(
                                 "1.3.1", "jeans",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.3.1.1", "patricia foster", null),
-                                    ItemList("1.3.1.2", "beto carreiro", null)
+                                    ProdutoFamilia("1.3.1.1", "patricia foster",  isChecked = false, itensList = null),
+                                    ProdutoFamilia("1.3.1.2", "beto carreiro", itensList = null, isChecked = false)
                                 )
-                            ), ItemList(
+                            ), ProdutoFamilia(
                                 "1.3.2", "sandalia",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.3.2.1", "havaianas", null),
-                                    ItemList("1.3.2.2", "ipanema", null)
+                                    ProdutoFamilia("1.3.2.1", "havaianas", itensList = null, isChecked = false),
+                                    ProdutoFamilia("1.3.2.2", "ipanema", itensList = null, isChecked = false)
                                 )
                             )
                         )
-                    ), ItemList(
+                    ), ProdutoFamilia(
                         "1.4", "Infantil",
+                        isChecked = false,
                         mutableListOf(
-                            ItemList(
+                            ProdutoFamilia(
                                 "1.4.1", "camisa",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.4.1.1", "camisa ben 10", null),
-                                    ItemList("1.4.1.2", "camisa hulk", null)
+                                    ProdutoFamilia("1.4.1.1", "camisa ben 10", itensList = null, isChecked = false),
+                                    ProdutoFamilia("1.4.1.2", "camisa hulk", itensList = null, isChecked = false)
                                 )
-                            ), ItemList(
+                            ), ProdutoFamilia(
                                 "1.4.2", "tenis",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("1.4.2.1", "tenis seninha", null),
-                                    ItemList("1.4.2.2", "tenis homem aranha", null)
+                                    ProdutoFamilia("1.4.2.1", "tenis seninha", itensList = null, isChecked = false),
+                                    ProdutoFamilia("1.4.2.2", "tenis homem aranha", itensList = null, isChecked = false)
                                 )
                             )
                         )
                     )
                 )
-            ), ItemList(
+            ), ProdutoFamilia(
                 "2",
                 "Cama",
                 isExpanded = true,
                 itensList = mutableListOf(
-                    ItemList(
+                    ProdutoFamilia(
                         "2.1", "Toalha",
+                        isChecked = false,
                         mutableListOf(
-                            ItemList(
+                            ProdutoFamilia(
                                 "2.1.1", "Toalha de banho",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("2.1.1.1", "Toalha marrom", null),
-                                    ItemList("2.1.1.2", "toalha azul", null)
+                                    ProdutoFamilia("2.1.1.1", "Toalha marrom", itensList = null, isChecked = false),
+                                    ProdutoFamilia("2.1.1.2", "toalha azul", itensList = null, isChecked = false)
                                 )
-                            ), ItemList(
+                            ), ProdutoFamilia(
                                 "2.1.2", "Toalha de praia",
+                                isChecked = false,
                                 mutableListOf(
-                                    ItemList("2.1.2.1", "toalha preta", null),
-                                    ItemList("2.1.2.2", "toalha branca", null),
-                                    ItemList("2.1.2.3", "toalha amarela", null),
-                                    ItemList("2.1.2.4", "toalha cinza", null),
-                                    ItemList("2.1.2.5", "toalha laranja", null)
+                                    ProdutoFamilia("2.1.2.1", "toalha preta", itensList = null, isChecked = false),
+                                    ProdutoFamilia("2.1.2.2", "toalha branca", itensList = null, isChecked = false),
+                                    ProdutoFamilia("2.1.2.3", "toalha amarela", itensList = null, isChecked = false),
+                                    ProdutoFamilia("2.1.2.4", "toalha cinza", itensList = null, isChecked = false),
+                                    ProdutoFamilia("2.1.2.5", "toalha laranja", itensList = null, isChecked = false
+                                    )
                                 )
 
                             )

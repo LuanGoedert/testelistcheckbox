@@ -5,13 +5,13 @@ import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testelistcheckbox.R
-import com.example.testelistcheckbox.itemlist.ItemList
+import com.example.testelistcheckbox.itemlist.ProdutoFamilia
 
 class ItemAdapter(activity: Activity, listItens:
-                  MutableList<ItemList> = mutableListOf(),
-                  onClick: AbstractRecyclerAdapter.OnClick<ItemList>,
+                  MutableList<ProdutoFamilia> = mutableListOf(),
+                  onClick: AbstractRecyclerAdapter.OnClick<ProdutoFamilia>,
                  ):
-    AbstractRecyclerAdapter<ItemList, ItemAdapter.ViewHolder>(activity, R.layout.itemlist) {
+    AbstractRecyclerAdapter<ProdutoFamilia, ItemAdapter.ViewHolder>(activity, R.layout.itemlist) {
 
     init {
         this.onClick = onClick
@@ -23,21 +23,28 @@ class ItemAdapter(activity: Activity, listItens:
 
     override fun onBindItemViewHolder(
         viewHolder: ViewHolder,
-        item: ItemList,
+        item: ProdutoFamilia,
         position: Int
     ) {
-       viewHolder.textItem.text = item.name
-        viewHolder.checkBox.setOnClickListener {
-            viewHolder.checkBox.isChecked != viewHolder.checkBox.isChecked
+        if(item.isChecked){
+            viewHolder.checkBox.isChecked = item.isChecked
         }
-        if(item.isExpanded == false){
-//            viewHolder.itemView.visibility =  View.GONE
+       viewHolder.textItem.text = item.name
+
+        viewHolder.checkBox.setOnClickListener {
+            item.isChecked = viewHolder.checkBox.isChecked
+            if (item.isChecked && !item.itensList.isNullOrEmpty()){
+                item.itensList!!.forEach {
+                    it.isChecked = item.isChecked
+                }
+            }
+            notifyDataSetChanged()
         }
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val textItem : TextView = itemView.findViewById(R.id.textItem)
-        val checkBox : CheckBox = itemView.findViewById(R.id.checkBox)
+        var checkBox : CheckBox = itemView.findViewById(R.id.checkBox)
         val arrowDown : ImageButton = itemView.findViewById(R.id.imageViewItem)
     }
 }

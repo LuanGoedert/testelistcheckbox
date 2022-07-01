@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testelistcheckbox.adapters.AbstractRecyclerAdapter
 import com.example.testelistcheckbox.adapters.ItemAdapter
 import com.example.testelistcheckbox.databinding.FragmentFirstBinding
-import com.example.testelistcheckbox.itemlist.ItemList
+import com.example.testelistcheckbox.itemlist.ProdutoFamilia
 import com.example.testelistcheckbox.itemlist.SeedingService
 
 /**
@@ -40,41 +40,45 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var seddingList = SeedingService()
 
-        var lista: MutableList<ItemList> = seddingList.retornaListaItens().toMutableList()
+        var lista: MutableList<ProdutoFamilia> = seddingList.retornaListaItens().toMutableList()
         itemAdapter = ItemAdapter(
             requireActivity(),
             lista,
-            onClick = object : AbstractRecyclerAdapter.OnClick<ItemList> {
-                override fun onClick(view: View?, item: ItemList, position: Int) {
-                    item.isExpanded  =  item.isExpanded.not()
-                    if(item.isExpanded) {
-                        if (!item.itensList.isNullOrEmpty()) {
-                            item.itensList!!.forEach { itemList ->
-                                itemList.childOf = item.name
-                                itemList.isExpanded = true
-                                itemAdapter.itens.addAll(item.itensList!!.filter { it -> it.isExpanded && !it.childOf.isNullOrEmpty() })
-                                itemAdapter.notifyDataSetChanged()
+            onClick = object : AbstractRecyclerAdapter.OnClick<ProdutoFamilia> {
+                override fun onClick(view: View?, item: ProdutoFamilia, position: Int) {
+                    requireActivity().runOnUiThread {
+                        if (item.isExpanded) {
+                            item.isExpanded = item.isExpanded.not()
+                            if (!item.itensList.isNullOrEmpty()) {
+                                item.itensList!!.forEach { produto ->
+                                    produto.childOf = item.name
+                                    produto.isExpanded = true
+                                }
+                                itemAdapter.itens.addAll(item.itensList!!.filter { it -> it.isExpanded && it.childOf.isNotEmpty() })
+                            }
+                        } else {
+                            item.isExpanded = item.isExpanded.not()
+                            if (!item.itensList.isNullOrEmpty()) {
+                                item.itensList!!.forEach { produto ->
+                                    produto.childOf = ""
+                                    produto.isExpanded = false
+                                }
+                                itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded && it.childOf.isEmpty() })
                             }
                         }
-                    }else {
-                        item.itensList!!.forEach { itemList ->
-                            itemList.childOf = ""
-                            itemList.isExpanded = false
-                            itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded && it.childOf.isNullOrEmpty() })
-                            itemAdapter.notifyDataSetChanged()
-                        }
+                        itemAdapter.notifyDataSetChanged()
                     }
                 }
             })
         binding.FirstFragment.adapter = itemAdapter
-        var llm = LinearLayoutManager(requireActivity())
+        val llm = LinearLayoutManager(requireActivity())
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.FirstFragment.layoutManager = llm
         itemAdapter.notifyDataSetChanged()
     }
 
-    private fun reformaLista(mutableList: MutableList<ItemList>): MutableList<ItemList> {
-        return mutableListOf()
+    fun reformaLista(lista :List<ProdutoFamilia>){
+
     }
 
     override fun onDestroyView() {
