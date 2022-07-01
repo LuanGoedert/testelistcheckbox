@@ -7,7 +7,8 @@ class SeedingService {
             ItemList(
                 "1",
                 "Moda",
-                mutableListOf(
+                isExpanded = true
+                , itensList = mutableListOf(
                     ItemList(
                         "1.2", "masculino",
                         mutableListOf(
@@ -64,7 +65,8 @@ class SeedingService {
             ), ItemList(
                 "2",
                 "Cama",
-                mutableListOf(
+                isExpanded = true,
+                itensList = mutableListOf(
                     ItemList(
                         "2.1", "Toalha",
                         mutableListOf(

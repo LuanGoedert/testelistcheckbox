@@ -1,23 +1,20 @@
 package com.example.testelistcheckbox.adapters
 
 import android.app.Activity
-import android.content.Context
 import android.view.View
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testelistcheckbox.R
-import com.example.testelistcheckbox.helpers.CustomFragment
 import com.example.testelistcheckbox.itemlist.ItemList
 
 class ItemAdapter(activity: Activity, listItens:
                   MutableList<ItemList> = mutableListOf(),
-                  private var onClickItem : () -> Unit,
-                  private var linearLayout: LinearLayout
+                  onClick: AbstractRecyclerAdapter.OnClick<ItemList>,
                  ):
     AbstractRecyclerAdapter<ItemList, ItemAdapter.ViewHolder>(activity, R.layout.itemlist) {
-    var customFragment = CustomFragment(activity)
 
     init {
+        this.onClick = onClick
         itens = listItens
     }
     override fun getViewHolder(view: View): ViewHolder {
@@ -29,14 +26,12 @@ class ItemAdapter(activity: Activity, listItens:
         item: ItemList,
         position: Int
     ) {
-       viewHolder.textItem.text = item.nome
+       viewHolder.textItem.text = item.name
         viewHolder.checkBox.setOnClickListener {
             viewHolder.checkBox.isChecked != viewHolder.checkBox.isChecked
         }
-        viewHolder.arrowDown.setOnClickListener{
-            if(!item.listaItens.isNullOrEmpty()){
-                customFragment.recyclerFragment(activity, item.listaItens!!.toMutableList(), onClickParameter = {onClickItem}, linearLayout)
-            }
+        if(item.isExpanded == false){
+//            viewHolder.itemView.visibility =  View.GONE
         }
     }
 

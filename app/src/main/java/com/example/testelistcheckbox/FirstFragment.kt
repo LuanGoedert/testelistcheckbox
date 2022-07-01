@@ -5,11 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testelistcheckbox.adapters.AbstractRecyclerAdapter
 import com.example.testelistcheckbox.adapters.ItemAdapter
 import com.example.testelistcheckbox.databinding.FragmentFirstBinding
-import com.example.testelistcheckbox.helpers.CustomFragment
 import com.example.testelistcheckbox.itemlist.ItemList
 import com.example.testelistcheckbox.itemlist.SeedingService
 
@@ -21,7 +20,6 @@ class FirstFragment : Fragment() {
     private var _binding: FragmentFirstBinding? = null
 
     private lateinit var itemAdapter: ItemAdapter
-    private lateinit var customFragment: CustomFragment
 
 
     // This property is only valid between onCreateView and
@@ -40,22 +38,43 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        customFragment = CustomFragment(requireActivity())
         var seddingList = SeedingService()
 
-        customFragment.recyclerFragment(requireActivity(), seddingList.retornaListaItens(), onClickParameter = {}, binding.FirstFragment)
+        var lista: MutableList<ItemList> = seddingList.retornaListaItens().toMutableList()
+        itemAdapter = ItemAdapter(
+            requireActivity(),
+            lista,
+            onClick = object : AbstractRecyclerAdapter.OnClick<ItemList> {
+                override fun onClick(view: View?, item: ItemList, position: Int) {
+                    item.isExpanded  =  item.isExpanded.not()
+                    if(item.isExpanded) {
+                        if (!item.itensList.isNullOrEmpty()) {
+                            item.itensList!!.forEach { itemList ->
+                                itemList.childOf = item.name
+                                itemList.isExpanded = true
+                                itemAdapter.itens.addAll(item.itensList!!.filter { it -> it.isExpanded && !it.childOf.isNullOrEmpty() })
+                                itemAdapter.notifyDataSetChanged()
+                            }
+                        }
+                    }else {
+                        item.itensList!!.forEach { itemList ->
+                            itemList.childOf = ""
+                            itemList.isExpanded = false
+                            itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded && it.childOf.isNullOrEmpty() })
+                            itemAdapter.notifyDataSetChanged()
+                        }
+                    }
+                }
+            })
+        binding.FirstFragment.adapter = itemAdapter
+        var llm = LinearLayoutManager(requireActivity())
+        llm.orientation = LinearLayoutManager.VERTICAL
+        binding.FirstFragment.layoutManager = llm
+        itemAdapter.notifyDataSetChanged()
+    }
 
-//        itemAdapter = ItemAdapter(
-//            requireActivity(),
-//            seddingList.retornaListaItens(),
-//            onCLickItem = object : AbstractRecyclerAdapter.OnClick<ItemList> {
-//                override fun onClick(view: View?, item: ItemList, position: Int) {
-//                    item.listaItens?.forEach {
-//
-//                    }
-//                }
-//            })
-
+    private fun reformaLista(mutableList: MutableList<ItemList>): MutableList<ItemList> {
+        return mutableListOf()
     }
 
     override fun onDestroyView() {

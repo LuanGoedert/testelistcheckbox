@@ -18,8 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 abstract class AbstractRecyclerAdapter<T, K : RecyclerView.ViewHolder>(
     val activity: Activity,
     @LayoutRes private val resource: Int,
-    var onClick: OnClick<T>? = null,
-    var onClickCheckBox : OnCickCheckBox<T>? = null
+    var onClick: OnClick<T>? = null
 ) : RecyclerView.Adapter<K>() {
 
     var itens = mutableListOf<T>()
@@ -72,9 +71,5 @@ abstract class AbstractRecyclerAdapter<T, K : RecyclerView.ViewHolder>(
 
     interface OnClick<T> {
         fun onClick(view: View?, item: T, position: Int)
-    }
-
-    interface OnCickCheckBox<T>{
-        fun onClickCheckBox(view: View?,item :T, position: Int)
     }
 }
