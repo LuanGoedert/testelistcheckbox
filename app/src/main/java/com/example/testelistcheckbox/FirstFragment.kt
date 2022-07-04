@@ -19,6 +19,8 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
+    private var viewModel = FirstViewModel()
+
     private lateinit var itemAdapter: ItemAdapter
 
 
@@ -32,8 +34,10 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding!!.lifecycleOwner = viewLifecycleOwner
+        _binding!!.viewModel = viewModel
 
+        return _binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,19 +55,17 @@ class FirstFragment : Fragment() {
                             item.isExpanded = item.isExpanded.not()
                             if (!item.itensList.isNullOrEmpty()) {
                                 item.itensList!!.forEach { produto ->
-                                    produto.childOf = item.name
                                     produto.isExpanded = true
                                 }
-                                itemAdapter.itens.addAll(item.itensList!!.filter { it -> it.isExpanded && it.childOf.isNotEmpty() })
+                                itemAdapter.itens.addAll(item.itensList!!.filter { it.isExpanded })
                             }
                         } else {
                             item.isExpanded = item.isExpanded.not()
                             if (!item.itensList.isNullOrEmpty()) {
                                 item.itensList!!.forEach { produto ->
-                                    produto.childOf = ""
                                     produto.isExpanded = false
                                 }
-                                itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded && it.childOf.isEmpty() })
+                                itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded })
                             }
                         }
                         itemAdapter.notifyDataSetChanged()
@@ -77,9 +79,8 @@ class FirstFragment : Fragment() {
         itemAdapter.notifyDataSetChanged()
     }
 
-    fun reformaLista(lista :List<ProdutoFamilia>){
 
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

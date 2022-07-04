@@ -1,4 +1,11 @@
 package com.example.testelistcheckbox.itemlist
 
-class Produtofamilia {
-}
+data class ProdutoFamilia(
+    var familia : String = "",
+    var name: String = "",
+    var isChecked: Boolean = false,
+    var itensList: List<ProdutoFamilia>? = null,
+    var isExpanded: Boolean = false,
+    var childOf: String = "",
+    var isParent: String = ""
+)
