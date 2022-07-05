@@ -5,12 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testelistcheckbox.adapters.AbstractRecyclerAdapter
 import com.example.testelistcheckbox.adapters.ItemAdapter
 import com.example.testelistcheckbox.databinding.FragmentFirstBinding
-import com.example.testelistcheckbox.helpers.CustomFragment
-import com.example.testelistcheckbox.itemlist.ItemList
+import com.example.testelistcheckbox.itemlist.ProdutoFamilia
 import com.example.testelistcheckbox.itemlist.SeedingService
 
 /**
@@ -20,8 +19,9 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
+    private var viewModel = FirstViewModel()
+
     private lateinit var itemAdapter: ItemAdapter
-    private lateinit var customFragment: CustomFragment
 
 
     // This property is only valid between onCreateView and
@@ -34,28 +34,62 @@ class FirstFragment : Fragment() {
     ): View? {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
+        _binding!!.lifecycleOwner = viewLifecycleOwner
+        _binding!!.viewModel = viewModel
 
+        return _binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        customFragment = CustomFragment(requireActivity())
         var seddingList = SeedingService()
 
-        customFragment.recyclerFragment(requireActivity(), seddingList.retornaListaItens(), onClickParameter = {}, binding.FirstFragment)
+        var lista: MutableList<ProdutoFamilia> = seddingList.retornaListaItens().toMutableList()
+        itemAdapter = ItemAdapter(
+            requireActivity(),
+            lista,
+            onClick = object : AbstractRecyclerAdapter.OnClick<ProdutoFamilia> {
+                override fun onClick(view: View?, item: ProdutoFamilia, position: Int) {
+                    requireActivity().runOnUiThread {
+                        if (item.isExpanded) {
+                            item.isExpanded = item.isExpanded.not()
+                            if (!item.itensList.isNullOrEmpty()) {
+                                remapeiaLista(itemAdapter, item, true)
+                            }
+                        } else {
+                            item.isExpanded = item.isExpanded.not()
+                            if (!item.itensList.isNullOrEmpty()) {
+                                remapeiaLista(itemAdapter, item, false)
+                            }
+                        }
+                        itemAdapter.notifyDataSetChanged()
+                    }
+                }
+            })
+        binding.FirstFragment.adapter = itemAdapter
+        val llm = LinearLayoutManager(requireActivity())
+        llm.orientation = LinearLayoutManager.VERTICAL
+        binding.FirstFragment.layoutManager = llm
+        itemAdapter.notifyDataSetChanged()
 
-//        itemAdapter = ItemAdapter(
-//            requireActivity(),
-//            seddingList.retornaListaItens(),
-//            onCLickItem = object : AbstractRecyclerAdapter.OnClick<ItemList> {
-//                override fun onClick(view: View?, item: ItemList, position: Int) {
-//                    item.listaItens?.forEach {
-//
-//                    }
-//                }
-//            })
+    }
 
+    fun remapeiaLista(adapter: ItemAdapter, produtoFamilia: ProdutoFamilia, isExpanded: Boolean) {
+        produtoFamilia.itensList?.forEach { item ->
+            item.isExpanded = isExpanded
+            if (isExpanded) {
+                adapter.itens.add(item)
+            } else {
+                adapter.itens.remove(item)
+            }
+            adapter.itens.sortBy { it.familia }
+            requireActivity().runOnUiThread {
+                adapter.notifyDataSetChanged()
+            }
+            if (!isExpanded) {
+                remapeiaLista(adapter, item, isExpanded)
+            }
+        }
     }
 
     override fun onDestroyView() {
