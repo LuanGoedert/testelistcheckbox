@@ -40,8 +40,6 @@ class ItemAdapter(
             checaItens(item.itensList, item.isChecked)
             notifyDataSetChanged()
         }
-
-
     }
 
     fun checaItens(itens :List<ProdutoFamilia>?, isChecked : Boolean): List<ProdutoFamilia>? {
