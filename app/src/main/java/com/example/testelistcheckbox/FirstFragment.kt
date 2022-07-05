@@ -45,6 +45,8 @@ class FirstFragment : Fragment() {
         var seddingList = SeedingService()
 
         var lista: MutableList<ProdutoFamilia> = seddingList.retornaListaItens().toMutableList()
+
+        viewModel.atribuiListaToMap(lista)
         itemAdapter = ItemAdapter(
             requireActivity(),
             lista,
@@ -62,10 +64,12 @@ class FirstFragment : Fragment() {
                         } else {
                             item.isExpanded = item.isExpanded.not()
                             if (!item.itensList.isNullOrEmpty()) {
-                                item.itensList!!.forEach { produto ->
-                                    produto.isExpanded = false
+                                viewModel.hideList(item.itensList)
+                                var x = viewModel.mapProdutos.values
+                                itemAdapter.itens.clear()
+                                x.forEach {
+                                    itemAdapter.itens.remove(it.produtoFamilia!!)
                                 }
-                                itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded })
                             }
                         }
                         itemAdapter.notifyDataSetChanged()
@@ -78,8 +82,6 @@ class FirstFragment : Fragment() {
         binding.FirstFragment.layoutManager = llm
         itemAdapter.notifyDataSetChanged()
     }
-
-
 
 
     override fun onDestroyView() {

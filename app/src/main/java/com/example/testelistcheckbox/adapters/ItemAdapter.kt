@@ -6,7 +6,6 @@ import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testelistcheckbox.R
 import com.example.testelistcheckbox.itemlist.ProdutoFamilia
-import kotlinx.android.synthetic.main.itemlist.view.*
 
 class ItemAdapter(
     private val activity: Activity,
@@ -29,7 +28,7 @@ class ItemAdapter(
         item: ProdutoFamilia,
         position: Int
     ) {
-        viewHolder.textItem.text = item.name
+        viewHolder.textItem.text = item.nome
         viewHolder.checkBox.isChecked = item.isChecked
 
         viewHolder.checkBox.setOnClickListener {
