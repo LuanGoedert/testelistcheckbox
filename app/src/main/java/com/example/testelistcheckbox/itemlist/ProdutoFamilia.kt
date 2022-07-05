@@ -6,6 +6,6 @@ data class ProdutoFamilia(
     var isChecked: Boolean = false,
     var itensList: List<ProdutoFamilia>? = null,
     var isExpanded: Boolean = false,
-    var childOf: String = "",
-    var isParent: String = ""
+    var ehFilhoDe : Double = 0.0,
+    var nomePai : Double = 0.0
 )

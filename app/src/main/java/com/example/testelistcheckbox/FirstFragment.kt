@@ -77,8 +77,13 @@ class FirstFragment : Fragment() {
         llm.orientation = LinearLayoutManager.VERTICAL
         binding.FirstFragment.layoutManager = llm
         itemAdapter.notifyDataSetChanged()
+
+        getValorLista()
     }
 
+    fun getValorLista(){
+        var x = itemAdapter.itens
+    }
 
 
 
