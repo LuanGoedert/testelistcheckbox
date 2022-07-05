@@ -54,18 +54,12 @@ class FirstFragment : Fragment() {
                         if (item.isExpanded) {
                             item.isExpanded = item.isExpanded.not()
                             if (!item.itensList.isNullOrEmpty()) {
-                                item.itensList!!.forEach { produto ->
-                                    produto.isExpanded = true
-                                }
-                                itemAdapter.itens.addAll(item.itensList!!.filter { it.isExpanded })
+                                remapeiaLista(itemAdapter, item, true)
                             }
                         } else {
                             item.isExpanded = item.isExpanded.not()
                             if (!item.itensList.isNullOrEmpty()) {
-                                item.itensList!!.forEach { produto ->
-                                    produto.isExpanded = false
-                                }
-                                itemAdapter.itens.removeAll(item.itensList!!.filter { !it.isExpanded })
+                                remapeiaLista(itemAdapter, item, false)
                             }
                         }
                         itemAdapter.notifyDataSetChanged()
@@ -78,14 +72,25 @@ class FirstFragment : Fragment() {
         binding.FirstFragment.layoutManager = llm
         itemAdapter.notifyDataSetChanged()
 
-        getValorLista()
     }
 
-    fun getValorLista(){
-        var x = itemAdapter.itens
+    fun remapeiaLista(adapter: ItemAdapter, produtoFamilia: ProdutoFamilia, isExpanded: Boolean) {
+        produtoFamilia.itensList?.forEach { item ->
+            item.isExpanded = isExpanded
+            if (isExpanded) {
+                adapter.itens.add(item)
+            } else {
+                adapter.itens.remove(item)
+            }
+            adapter.itens.sortBy { it.familia }
+            requireActivity().runOnUiThread {
+                adapter.notifyDataSetChanged()
+            }
+            if (!isExpanded) {
+                remapeiaLista(adapter, item, isExpanded)
+            }
+        }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
