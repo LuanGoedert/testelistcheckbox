@@ -33,11 +33,6 @@ class ItemAdapter(
     ) {
         viewHolder.textItem.text = item.name
         viewHolder.checkBox.isChecked = item.isChecked
-//        if (item.increment.isNullOrEmpty()) {
-//
-//            item.increment = "   "
-//        }
-
         when (item.increment.length) {
             3 -> {
                 viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color1))
@@ -74,7 +69,6 @@ class ItemAdapter(
         }
         itens?.forEach { item ->
             item.isChecked = isChecked
-//            item.increment =  itemIncrement + "   "
             checaItens(item.itensList ?: listOf(), isChecked, item.increment)
         }
         return itens
