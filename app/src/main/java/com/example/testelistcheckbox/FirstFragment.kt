@@ -45,6 +45,8 @@ class FirstFragment : Fragment() {
         var seddingList = SeedingService()
 
         var lista: MutableList<ProdutoFamilia> = seddingList.retornaListaItens().toMutableList()
+
+        adicionaFiliacao(lista, "")
         itemAdapter = ItemAdapter(
             requireActivity(),
             lista,
@@ -72,6 +74,16 @@ class FirstFragment : Fragment() {
         binding.FirstFragment.layoutManager = llm
         itemAdapter.notifyDataSetChanged()
 
+    }
+
+    fun adicionaFiliacao(lista: List<ProdutoFamilia>?, itemIncrement : String){
+        lista?.forEach { item ->
+            if(item.increment.isEmpty()){
+                item.increment = "   "
+            }
+            item.increment =  itemIncrement + "   "
+            adicionaFiliacao(item.itensList,  item.increment)
+        }
     }
 
     fun remapeiaLista(adapter: ItemAdapter, produtoFamilia: ProdutoFamilia, isExpanded: Boolean) {

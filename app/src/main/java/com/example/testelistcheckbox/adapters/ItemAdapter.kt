@@ -33,28 +33,27 @@ class ItemAdapter(
     ) {
         viewHolder.textItem.text = item.name
         viewHolder.checkBox.isChecked = item.isChecked
-        if (item.increment.isNullOrEmpty()) {
+//        if (item.increment.isNullOrEmpty()) {
+//
+//            item.increment = "   "
+//        }
 
-            item.increment = "   "
-        }
-        else {
-          when(item.increment.length){
-              3 ->{
-                  viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color1))
-              }
-              6 ->{
-                  viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color2))
-              }
-              9 ->{
-                    viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color3))
-              }
-              12 ->{
-                  viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color4))
-              }
-              15 ->{
-                  viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color5))
-              }
-          }
+        when (item.increment.length) {
+            3 -> {
+                viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color1))
+            }
+            6 -> {
+                viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color2))
+            }
+            9 -> {
+                viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color3))
+            }
+            12 -> {
+                viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color4))
+            }
+            15 -> {
+                viewHolder.traco.setBackgroundColor(activity.getColor(R.color.color5))
+            }
         }
 
         viewHolder.traco.text = item.increment
@@ -74,9 +73,8 @@ class ItemAdapter(
             return null
         }
         itens?.forEach { item ->
-
             item.isChecked = isChecked
-            item.increment =  itemIncrement + "   "
+//            item.increment =  itemIncrement + "   "
             checaItens(item.itensList ?: listOf(), isChecked, item.increment)
         }
         return itens
