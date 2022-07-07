@@ -38,7 +38,9 @@ class SeedingService {
                                 isChecked = false,
                                 mutableListOf(
                                     ProdutoFamilia("1.3.1.1", "patricia foster",  isChecked = false, itensList = null),
-                                    ProdutoFamilia("1.3.1.2", "beto carreiro", itensList = null, isChecked = false)
+                                    ProdutoFamilia("1.3.1.2", "beto carreiro", itensList = mutableListOf(
+                                        ProdutoFamilia("1.3.1.2.1", "betinho carreirinho", itensList = null, isChecked = false)
+                                    ), isChecked = false)
                                 )
                             ), ProdutoFamilia(
                                 "1.3.2", "sandalia",

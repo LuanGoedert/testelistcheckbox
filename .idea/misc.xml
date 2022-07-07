@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android/testelistcheckbox/app/src/main/res/drawable/ic_arrow_down_24dp.xml" value="0.2985" />
+        <entry key="..\:/Android/testelistcheckbox/app/src/main/res/drawable/ic_card.xml" value="0.201" />
+        <entry key="..\:/Android/testelistcheckbox/app/src/main/res/drawable/ic_seta.xml" value="0.201" />
+        <entry key="..\:/Android/testelistcheckbox/app/src/main/res/drawable/retangulo_azul.xml" value="0.188" />
         <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/activity_main.xml" value="0.35989583333333336" />
         <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/fragment_first.xml" value="0.2" />
         <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/fragment_recycler.xml" value="0.32608695652173914" />
         <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/fragment_second.xml" value="0.32608695652173914" />
-        <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/itemlist.xml" value="0.32608695652173914" />
+        <entry key="..\:/Android/testelistcheckbox/app/src/main/res/layout/itemlist.xml" value="0.33" />
         <entry key="..\:/Users/104781/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.14114583333333333" />
       </map>
     </option>
